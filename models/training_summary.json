@@ -1,0 +1,13 @@
+{
+  "vocab_size": 20000,
+  "max_length": 100,
+  "embedding_dim": 128,
+  "lstm_units": 64,
+  "batch_size": 32,
+  "epochs": 8,
+  "model_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\models\\hate_speech_lstm.keras",
+  "tokenizer_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\models\\hate_speech_tokenizer.json",
+  "curve_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\figures\\training_curves.png",
+  "final_train_accuracy": 0.832083523273468,
+  "final_val_accuracy": 0.8323014974594116
+}
