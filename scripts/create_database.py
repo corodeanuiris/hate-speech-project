@@ -1,9 +1,9 @@
 import pandas as pd
 import sqlite3
 
-df = pd.read_csv("data/processed/cleaned_dataset.csv")
+df = pd.read_csv("data/processed/cleaned_dataset.csv") # we load the clean data 
 
-conn = sqlite3.connect("data/processed/forum_data.db")
+conn = sqlite3.connect("data/processed/forum_data.db") # we create a DQLite database
 cursor = conn.cursor()
 
 cursor.execute("DROP TABLE IF EXISTS posts")

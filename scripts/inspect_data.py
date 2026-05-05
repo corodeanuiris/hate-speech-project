@@ -1,11 +1,14 @@
+
+#  we explore the data before processig it
+
 import pandas as pd
 
-df = pd.read_csv("data/raw/raw_dataset.csv")
+df = pd.read_csv("data/raw/raw_dataset.csv") # we load the raw data and print basic info
 
 print("First 5 rows:")
 print(df.head())
 
-print("\nColumns:")
+print("\nColumns:") # column names 
 print(df.columns.tolist())
 
 print("\nShape:")
