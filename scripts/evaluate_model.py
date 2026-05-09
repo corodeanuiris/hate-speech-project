@@ -19,6 +19,7 @@ MODEL_PATH = MODEL_DIR / "hate_speech_lstm.keras"
 TOKENIZER_PATH = MODEL_DIR / "hate_speech_tokenizer.json"
 REPORT_PATH = MODEL_DIR / "evaluation_report.json"
 CONFUSION_MATRIX_PATH = FIGURES_DIR / "confusion_matrix.png"
+THRESHOLD_PATH = MODEL_DIR / "optimal_threshold.json"
 
 MAX_LENGTH = 100
 
@@ -26,6 +27,18 @@ MAX_LENGTH = 100
 def load_tokenizer(path: Path):
     tokenizer_json = path.read_text(encoding="utf-8")
     return tokenizer_from_json(tokenizer_json)
+
+
+def load_threshold(path: Path) -> float:
+    """Load the optimal decision threshold saved by train_model.py.
+
+    Falls back to 0.5 if the file does not exist (e.g., when running against
+    a model trained before this fix was applied).
+    """
+    if path.exists():
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return float(data["optimal_threshold"])
+    return 0.5
 
 
 def plot_confusion_matrix(matrix):
@@ -62,13 +75,14 @@ def main() -> None:
     test_df = pd.read_csv(TEST_PATH)
     model = load_model(MODEL_PATH)
     tokenizer = load_tokenizer(TOKENIZER_PATH)
+    optimal_threshold = load_threshold(THRESHOLD_PATH)
 
     sequences = tokenizer.texts_to_sequences(test_df["clean_text"].astype(str).tolist())
     x_test = pad_sequences(sequences, maxlen=MAX_LENGTH, padding="post", truncating="post")
     y_true = test_df["label"].astype(int).values
 
     probabilities = model.predict(x_test, verbose=0).ravel()
-    y_pred = (probabilities >= 0.5).astype(int)
+    y_pred = (probabilities >= optimal_threshold).astype(int)
 
     report = classification_report(y_true, y_pred, output_dict=True)
     matrix = confusion_matrix(y_true, y_pred)
@@ -78,6 +92,7 @@ def main() -> None:
     summary = {
         "model_path": str(MODEL_PATH),
         "tokenizer_path": str(TOKENIZER_PATH),
+        "optimal_threshold": optimal_threshold,
         "test_rows": int(len(test_df)),
         "confusion_matrix_path": str(CONFUSION_MATRIX_PATH),
         "classification_report": report,

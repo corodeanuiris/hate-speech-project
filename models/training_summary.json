@@ -4,10 +4,12 @@
   "embedding_dim": 128,
   "lstm_units": 64,
   "batch_size": 32,
-  "epochs": 8,
+  "epochs": 30,
   "model_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\models\\hate_speech_lstm.keras",
   "tokenizer_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\models\\hate_speech_tokenizer.json",
   "curve_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\figures\\training_curves.png",
-  "final_train_accuracy": 0.832083523273468,
-  "final_val_accuracy": 0.8323014974594116
+  "optimal_threshold": 0.42567867040634155,
+  "threshold_path": "C:\\Users\\buste\\Desktop\\dl\\hate-speech-project\\models\\optimal_threshold.json",
+  "final_train_accuracy": 0.9951898455619812,
+  "final_val_accuracy": 0.9254209995269775
 }
