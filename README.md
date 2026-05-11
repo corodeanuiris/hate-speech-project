@@ -1,13 +1,15 @@
-Commands to run the code: 
+This branch contains only the data processing part of the project.
 
-# shows us what the raw data looks like before touching it. how many rows/columns, if anything misses and how many tweets beong # to each class (0,1,2)
-python scripts/inspect_data.py 
+How to run:
 
-# confirms how many rows survived cleaning, shows the balance between label 0 and label 1 and confirms the file was saved
+# 1) Inspect raw dataset (shape, columns, missing values, class distribution)
+python scripts/inspect_data.py
+
+# 2) Clean text, map labels, balance classes, and save processed dataset
 python scripts/clean_data.py
 
-# confirms how many rows were successfully inserted into the SQLite database
+# 3) Create and populate SQLite database from processed dataset
 python scripts/create_database.py
 
-# confirms the size of each split so we know the training, validation and test sets were created correctly
-scripts/split_data.py
+# 4) Split processed dataset into train/validation/test files
+python scripts/split_data.py
